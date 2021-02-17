@@ -15,17 +15,17 @@ enum QrCodeElement {
   /// The 'stroke' / outer square of the QR code finder pattern element.
   finderPatternOuter,
 
-  /// The inner/in-between square of the QR code finder pattern element.
+  /// The inner square of the QR code finder pattern element.
   finderPatternInner,
-
-  /// The "dot" square of the QR code finder pattern element.
-  finderPatternDot,
 
   /// The individual pixels of the QR code
   codePixel,
+}
 
-  /// The "empty" pixels of the QR code
-  codePixelEmpty,
+/// Styling options for qr code
+enum QrStyle {
+  circular,
+  square,
 }
 
 /// Enumeration representing the three finder pattern (square 'eye') locations.
@@ -38,73 +38,6 @@ enum FinderPatternPosition {
 
   /// The bottom left position.
   bottomLeft,
-}
-
-/// Enumeration representing the finder pattern eye's shape.
-enum QrEyeShape {
-  /// Use square eye frame.
-  square,
-
-  /// Use circular eye frame.
-  circle,
-}
-
-/// Enumeration representing the shape of Data modules inside QR.
-enum QrDataModuleShape {
-  /// Use square dots.
-  square,
-
-  /// Use circular dots.
-  circle,
-}
-
-/// Styling options for finder pattern eye.
-class QrEyeStyle {
-  /// Create a new set of styling options for QR Eye.
-  const QrEyeStyle({this.eyeShape, this.color});
-
-  /// Eye shape.
-  final QrEyeShape eyeShape;
-
-  /// Color to tint the eye.
-  final Color color;
-
-  @override
-  int get hashCode => eyeShape.hashCode ^ color.hashCode;
-
-  @override
-  bool operator ==(Object other) {
-    if (other is QrEyeStyle) {
-      return eyeShape == other.eyeShape && color == other.color;
-    }
-    return false;
-  }
-}
-
-/// Styling options for data module.
-class QrDataModuleStyle {
-  /// Create a new set of styling options for data modules.
-  const QrDataModuleStyle({
-    this.dataModuleShape,
-    this.color,
-  });
-
-  /// Eye shape.
-  final QrDataModuleShape dataModuleShape;
-
-  /// Color to tint the data modules.
-  final Color color;
-
-  @override
-  int get hashCode => dataModuleShape.hashCode ^ color.hashCode;
-
-  @override
-  bool operator ==(Object other) {
-    if (other is QrDataModuleStyle) {
-      return dataModuleShape == other.dataModuleShape && color == other.color;
-    }
-    return false;
-  }
 }
 
 /// Styling options for any embedded image overlay

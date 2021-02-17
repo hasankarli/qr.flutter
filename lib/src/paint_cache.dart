@@ -11,7 +11,7 @@ import 'types.dart';
 ///
 class PaintCache {
   final List<Paint> _pixelPaints = <Paint>[];
-  final Map<String, Paint> _keyedPaints = <String, Paint>{};
+  final Map<String, Paint> _finderPaints = <String, Paint>{};
 
   String _cacheKey(QrCodeElement element, {FinderPatternPosition position}) {
     final posKey = position != null ? position.toString() : 'any';
@@ -23,8 +23,9 @@ class PaintCache {
       {FinderPatternPosition position}) {
     if (element == QrCodeElement.codePixel) {
       _pixelPaints.add(paint);
-    } else {
-      _keyedPaints[_cacheKey(element, position: position)] = paint;
+    } else if (element == QrCodeElement.finderPatternOuter ||
+        element == QrCodeElement.finderPatternInner) {
+      _finderPaints[_cacheKey(element, position: position)] = paint;
     }
   }
 
@@ -33,9 +34,11 @@ class PaintCache {
   Paint firstPaint(QrCodeElement element, {FinderPatternPosition position}) {
     if (element == QrCodeElement.codePixel) {
       return _pixelPaints.first;
-    } else {
-      return _keyedPaints[_cacheKey(element, position: position)];
+    } else if (element == QrCodeElement.finderPatternOuter ||
+        element == QrCodeElement.finderPatternInner) {
+      return _finderPaints[_cacheKey(element, position: position)];
     }
+    return null;
   }
 
   /// Retrieve all [Paint] objects from the paint cache for the provided
@@ -45,8 +48,10 @@ class PaintCache {
   List<Paint> paints(QrCodeElement element, {FinderPatternPosition position}) {
     if (element == QrCodeElement.codePixel) {
       return _pixelPaints;
-    } else {
-      return <Paint>[_keyedPaints[_cacheKey(element, position: position)]];
+    } else if (element == QrCodeElement.finderPatternOuter ||
+        element == QrCodeElement.finderPatternInner) {
+      return <Paint>[_finderPaints[_cacheKey(element, position: position)]];
     }
+    return null;
   }
 }
